@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import bcrypt from 'bcryptjs';
 
 class Admuser extends Model {
   static init(sequelize) {
@@ -14,6 +15,13 @@ class Admuser extends Model {
         sequelize,
       }
     );
+
+    // const password_hash = bcrypt.hashSync('123456', 8),
+    // this.addHook
+  }
+
+  checkPass(password) {
+    return bcrypt.compare(password, password_hash);
   }
 }
 
