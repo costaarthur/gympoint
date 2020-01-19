@@ -1,16 +1,19 @@
 // import jwt from 'jsonwebtoken';
 
-import AdmUser from '../models/AdmUser';
+import Admuser from '../models/AdmUser';
 
 class AdmController {
   async store(req, res) {
     const { email, password } = req.body;
 
-    /* const admuser = await AdmUser.findOne({ where: { email } });
+    /* const admuser = await Admuser.findOne({ where: { email } });
     if (!admuser) {
       return res.status(401).json({ error: 'User not found' });
     } */
-    const admuser = await AdmUser.findOne({ where: { email } });
+    console.log('entrei');
+    const admuser = await Admuser.findOne({ where: { email } });
+
+    console.log(admuser);
     const { name } = admuser;
 
     return res.json({
