@@ -25,7 +25,7 @@ module.exports = {
         allowNull: false,
       },
       height: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       provider: {
