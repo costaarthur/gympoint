@@ -18,7 +18,18 @@ class StudentController {
   }
 
   async update(req, res) {
-    return res.json({ ok: true });
+    // console.log(req.studentId);
+    const student = await Student.findByPk(req.studentId);
+
+    const { email } = req.body;
+    const { id, name, provider } = await student.update(req.body);
+
+    return res.json({
+      id,
+      name,
+      email,
+      provider,
+    });
   }
 }
 
