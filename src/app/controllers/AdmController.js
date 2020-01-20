@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 import Admuser from '../models/AdmUser';
+import authAdm from '../../config/authadm';
 
 class AdmController {
   async store(req, res) {
@@ -11,13 +12,21 @@ class AdmController {
       return res.status(401).json({ error: 'User not found' });
     }
 
-    const { name } = admuser;
+    if (!(await admuser.checkPass(password))) {
+      return res.status(401).json({ error: 'Password does not match' });
+    }
+
+    const { id, name } = admuser;
 
     return res.json({
       admuser: {
+        id,
         name,
         email,
       },
+      token: jwt.sign({ id }, authAdm.secret, {
+        expiresIn: authAdm.expiresIn,
+      }),
     });
   }
 }

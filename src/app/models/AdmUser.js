@@ -17,11 +17,15 @@ class Admuser extends Model {
     );
 
     // const password_hash = bcrypt.hashSync('123456', 8),
-    // this.addHook
+    this.addHook('beforeSave', async user => {
+      if (user.password) {
+        user.password_hash = await bcrypt.hash(user.password, 8);
+      }
+    });
   }
 
   checkPass(password) {
-    return bcrypt.compare(password, password_hash);
+    return bcrypt.compare(password, this.password_hash);
   }
 }
 
