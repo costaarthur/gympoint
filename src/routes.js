@@ -17,6 +17,13 @@ routes.post('/sessions', SessionController.store);
 // project
 routes.post('/admsessions', AdmController.store);
 
+/* routes.get('/students/:id'),
+  (req, res) => {
+    const { id } = req.params.id;
+
+    return res.json({ message: `Hello ${id}}` });
+  }; */
+
 routes.use(admMiddleware);
 routes.post('/students', StudentController.store);
 routes.put('/students', StudentController.update);

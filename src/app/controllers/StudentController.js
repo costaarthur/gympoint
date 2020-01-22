@@ -18,17 +18,28 @@ class StudentController {
   }
 
   async update(req, res) {
-    // console.log(req.studentId);
-    const student = await Student.findByPk(req.studentId);
-
     const { email } = req.body;
-    const { id, name, provider } = await student.update(req.body);
+    // const student = await Student.findByPk(req.studentId);
+    // const student = await Student.findByPk(req.studentId);
+
+    // console.log(student);
+
+    const student = await Student.findOne({ where: { email } });
+
+    if (!student) {
+      return res.status(400).json({ error: 'Student not exists.' });
+    }
+
+    const { id, name, age, weight, height } = await student.update(req.body);
 
     return res.json({
       id,
-      name,
       email,
-      provider,
+      name,
+      age,
+      weight,
+      height,
+      admId: req.admId,
     });
   }
 }
