@@ -16,6 +16,7 @@ routes.post('/sessions', SessionController.store);
 
 // project
 routes.post('/admsessions', AdmController.store);
+routes.get('/getstudent', StudentController.get);
 
 /* routes.get('/students/:id'),
   (req, res) => {

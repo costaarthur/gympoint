@@ -42,6 +42,27 @@ class StudentController {
       admId: req.admId,
     });
   }
+
+  async get(req, res) {
+    const { name } = req.body;
+    const student = await Student.findOne({ where: { name } });
+
+    if (!student) {
+      return res.status(400).json({ error: 'Student does not exists bro' });
+    }
+
+    const { id, email, age, weight, height } = await student.get(req.body);
+
+    return res.json({
+      id,
+      email,
+      name,
+      age,
+      weight,
+      height,
+      admId: req.admId,
+    });
+  }
 }
 
 export default new StudentController();
